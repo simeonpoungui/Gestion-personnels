@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnexionService } from 'src/app/services/connexion.service';
+import { ConnexionService,erreurConnexionModel } from 'src/app/services/connexion.service';
 import { LoadingComponent } from 'src/app/loading/loading.component';
 import { AlertEcoleComponent } from 'src/app/alert-ecole/alert-ecole.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -51,22 +51,32 @@ export class ConnexionComponent{
       })).subscribe(
          (data) => {
          console.log(data)
-         const personnel : Personnel = data;
-         console.log(personnel)
+         const personnel : Personnel | erreurConnexionModel = data;
 
-         localStorage.setItem("personnel",JSON.stringify(personnel))
+         if(personnel && personnel instanceof Personnel ){
+          console.log(personnel)
+          localStorage.setItem("personnel",JSON.stringify(personnel))
           console.log("connecter")
           this.router.navigateByUrl('');
            window.location.reload();
-         },
-         (error) => {
-           this.isLoading = false;
-           console.log(error);
-           const ref = this.dialog.open(AlertEcoleComponent)
-           ref.componentInstance.contenu = "Erreur email ou mot de passe"
+         }else if(personnel && personnel  instanceof erreurConnexionModel){
 
+
+
+          this.isLoading = false;
+          const ref = this.dialog.open(AlertEcoleComponent)
+          ref.componentInstance.contenu = personnel.fault.detail
 
          }
+      
+         },(error) => {
+          this.isLoading = false;
+          console.log(error);
+          const ref = this.dialog.open(AlertEcoleComponent)
+          ref.componentInstance.contenu = "Erreur serveur"
+     
+        }
+
        );
 
         }

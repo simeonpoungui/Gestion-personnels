@@ -1,9 +1,12 @@
-<div><div class="row">
-
+<div>
+  <li class="nav-item  pt-4">
+    <a class="nav-link "  style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-body">
-          <h3 class="card-title text-center" style="width: 20em">
+        <div class="card-body " style="width: 30em;">
+          <h3 class="card-title text-center">
             <h2 class="">
               {{ action === "view" ? "Fiche de la nationalite" : "" }}
               {{ action === "edit" ? "Modifier la nationalité" : "" }}
@@ -17,7 +20,7 @@
             #zoneForm="ngForm"
             (ngSubmit)="onSubmitretenue(zoneForm)"
             class="m-auto"
-            style="width: 45%"
+           
           >
             <div class="">
               <label for="validationCustom02" class="form-label">
@@ -48,10 +51,10 @@
     </div>
   </div>
 </div>
-  <ng-template #loading>
-    <div class="fa-3x text-start mb-2 mt-2">
-      <span class="fs-5">{{message}}</span>
-      <br /><br />
-      <i class="fas text-primary spinner-grow"></i><br />
-    </div>
-  </ng-template>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5">{{ message }}</span>
+    <br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

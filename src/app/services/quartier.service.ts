@@ -41,17 +41,21 @@ export class QuartierService {
 
 
 
-  //Recuperer les données en fonction des ressources
+  //Recuperer les arrondissements par rapport aux departement
 
   Recuperation(iddepartement: string): Observable<Arrondisssement[]>{
     const data = {data: {IDDEPARTEMENT: iddepartement},route: this.uriRessource, method: "POST"};
     return this.http.post<Arrondisssement[]>(environment.apiUrl, JSON.stringify(data));
   }
 
+  //recuperer les quartiers par rapport aux arrondissements
+
   RecuperationArrondissement(idarrondissement: string): Observable<Quartier[]>{
     const data = {data: {IDARRONDISSEMENT: idarrondissement},route: this.uriRessources, method: "POST"};
     return this.http.post<Quartier[]>(environment.apiUrl, JSON.stringify(data));
   }
+
+  //recuperer les quartiers par rapport aux departements
 
   RecuperationDepartement(iddepartement: string): Observable<Quartier[]>{
     const data = {data: {IDDEPARTEMENT: iddepartement},route: this.uriRessources, method: "POST"};

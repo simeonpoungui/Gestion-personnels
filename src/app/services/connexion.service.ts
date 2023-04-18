@@ -23,18 +23,29 @@ export class ConnexionService {
 
 
 
-   login(sLogin: string, sPasseWord: string): Observable<Personnel>{
+   login(sLogin: string, sPasseWord: string): Observable<Personnel | erreurConnexionModel>{
      const data = {data: {},route: this.uriConnexion + "/" + sLogin+ "/" + sPasseWord, method: "POST"};
      console.log(JSON.stringify(data))
-     return this.http.post<Personnel>(environment.apiUrl, JSON.stringify(data));
+     return this.http.post<Personnel | erreurConnexionModel>(environment.apiUrl, JSON.stringify(data));
    }
-
-
 
 
      logout() {
       localStorage.clear();
       window.location.reload();
      }
+
+}
+
+export class erreurConnexionModel {
+
+  fault!:{
+
+       faultcode: string,
+       faultstring:string,
+       detail:string
+      
+      } 
+
 
 }

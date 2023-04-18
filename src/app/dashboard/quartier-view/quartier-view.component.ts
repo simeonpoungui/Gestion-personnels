@@ -81,12 +81,14 @@ export class QuartierViewComponent implements OnInit{
     )
   }
 
+ //recuperer les quartiers par rapport aux departements et arrondissements
+ 
   onSelectionChanges(event : any){
     console.log(event.target.value)
     const parametre = event.target.value;
     this.isLoading = true
-
     parametre;
+    //recuperer les quartiers par rapport aux departements
     this.quartierService.RecuperationDepartement(parametre).pipe(catchError((error:HttpErrorResponse)=>{
       console.log(error.status);
       return []
@@ -102,6 +104,8 @@ export class QuartierViewComponent implements OnInit{
       console.log(error)
     }
     )
+    
+  //Recuperer les arrondissements par rapport aux departements
 
     this.quartierService.Recuperation(parametre).pipe(catchError((error:HttpErrorResponse)=>{
       console.log(error.status);
@@ -116,6 +120,9 @@ export class QuartierViewComponent implements OnInit{
     )
 
   }
+
+
+  //recuperer les quartiers par rapport aux arrondissements
 
   onSelectionChange(event : any){
     console.log(event.target.value)

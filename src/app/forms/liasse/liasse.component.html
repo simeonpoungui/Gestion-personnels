@@ -1,71 +1,74 @@
-<div><div class="row container">
+<div>
+  <li class="nav-item  pt-4">
+    <a class="nav-link "  style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="row container">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center" style="width: 20em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de la liasse" : "" }}
+              {{ action === "edit" ? "Modifier la liasse" : "" }}
+              {{ action === "view" || action === "edit" ? LibelleLiasse : "" }}
+              {{ !action ? "Nouvelle liasse" : "" }}
+            </h2>
+          </h3>
 
-      <div class="col-12">
-        <div class="card  ">
-          <div class="card-body">
-            <h3 class="card-title text-center" style="width: 20em">
-              <h2 class="">
-                {{ action === "view" ? "Fiche de la liasse" : "" }}
-                {{ action === "edit" ? "Modifier la liasse" : "" }}
-                {{ action === "view" || action === "edit" ? LibelleLiasse : "" }}
-                {{ !action ? "Nouvelle liasse" : "" }}
-              </h2>
-            </h3>
+          <p></p>
+          <form
+            #zoneForm="ngForm"
+            (ngSubmit)="onSubmitliasse(zoneForm)"
+            class="m-auto"
+            style=""
+          >
+            <div class="">
+              <label for="validationCustom02" class="form-label">
+                Code Liasse</label
+              >
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="CodeLiasse"
+                [(ngModel)]="CodeLiasse"
+                required=""
+              />
+            </div>
 
-            <p></p>
-            <form
-              #zoneForm="ngForm"
-              (ngSubmit)="onSubmitliasse(zoneForm)"
-              class="m-auto "
-              style=""
-            >
-              <div class="">
-                <label for="validationCustom02" class="form-label">
-                  Code Liasse</label
-                >
-                <input
-                  [readonly]="action == 'view'"
-                  type="text"
-                  class="form-control hauteur"
-                  name="CodeLiasse"
-                  [(ngModel)]="CodeLiasse"
-                  required=""
-                />
-              </div>
+            <div class="mt-3">
+              <label for="validationCustom02" class="form-label">
+                Libelle de la Liasse</label
+              >
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="LibelleLiasse"
+                [(ngModel)]="LibelleLiasse"
+                required=""
+              />
+            </div>
 
-              <div class="mt-3">
-                <label for="validationCustom02" class="form-label">
-                  Libelle de la Liasse</label
-                >
-                <input
-                  [readonly]="action == 'view'"
-                  type="text"
-                  class="form-control hauteur"
-                  name="LibelleLiasse"
-                  [(ngModel)]="LibelleLiasse"
-                  required=""
-                />
-              </div>
-
-              <div class="mt-3" *ngIf="action != 'view'">
-                <button
-                  *ngIf="!isLoading; else loading"
-                  type="submit"
-                  class="btn form-control btn-primary"
-                >
-                  {{ action === "edit" ? "Modifier une liasse " : "Valider" }}
-                </button>
-              </div>
-            </form>
-          </div>
+            <div class="mt-3" *ngIf="action != 'view'">
+              <button
+                *ngIf="!isLoading; else loading"
+                type="submit"
+                class="btn form-control btn-primary"
+              >
+                {{ action === "edit" ? "Modifier une liasse " : "Valider" }}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-    <ng-template #loading>
-      <div class="fa-3x text-start mb-2 mt-2">
-        <span class="fs-5">{{message}}</span>
-        <br /><br />
-        <i class="fas text-primary spinner-grow"></i><br />
-      </div>
-    </ng-template>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5">{{ message }}</span>
+    <br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>
