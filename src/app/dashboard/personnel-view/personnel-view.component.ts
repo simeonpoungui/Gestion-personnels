@@ -161,6 +161,7 @@ DateNaissance!: string;
   }
 
 
+//Affichier les personnels par rapport aux idservices idcompteEtat et idCivilte
 
   loadListePersonnel(){
     this.personnelService.Recuperation("0",this.Civilite,this.IDSERVICE,this.EtatCompte).pipe(catchError((error:HttpErrorResponse)=>{
@@ -182,6 +183,7 @@ DateNaissance!: string;
   }
 
 
+//Affichier les personnels par rapport aux id services
 
   onSelectionService(event: any){
     console.log(event.target.value)
@@ -192,6 +194,8 @@ DateNaissance!: string;
   }
 
 
+  //Affichier les personnels par rapport aux id etatcompte
+
   onSelectionEtatCompte(event: any){
     console.log(event.target.value)
     const parametre = event.target.value;
@@ -200,6 +204,8 @@ DateNaissance!: string;
     this.loadListePersonnel()
   }
 
+
+  //Affichier les personnels par rapport aux id civilte
 
   onSelectionCivilite(event: any){
     console.log(event.target.value)
@@ -210,10 +216,13 @@ DateNaissance!: string;
   }
 
 
+
+
   onClickLine(personnel: Personnel){
     console.log("clicque : "+ personnel.nIDPERSONNEL);
     this.personnelSelected = personnel;
   }
+
 
   applyFilter(filterValue: any) {
     const value = filterValue.target.value;

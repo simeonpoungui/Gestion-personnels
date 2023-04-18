@@ -89,14 +89,12 @@ export class ZoneViewComponent {
     console.log(event.target.value)
     const parametre = event.target.value;
     this.isLoading = true
-
     this.departement = parametre;
-    this.zoneService.RecuperationDepartement(this.departement ).pipe(catchError((error:HttpErrorResponse)=>{
+    this.zoneService.RecuperationDepartement(this.departement).pipe(catchError((error:HttpErrorResponse)=>{
       console.log(error.status);
       return []
     })).subscribe((data)=>{
       console.log(data)
-
       this.dataSource = new MatTableDataSource(data);
              this.dataSource.sort = this.sort;
          this.dataSource.paginator = this.paginator;

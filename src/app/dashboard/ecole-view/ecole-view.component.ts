@@ -132,9 +132,6 @@ export class EcoleViewComponent implements OnInit{
 
 
 
-
-
-
   onSelectionChange(event : any){
     console.log(event.target.value)
     const parametre = event.target.value;

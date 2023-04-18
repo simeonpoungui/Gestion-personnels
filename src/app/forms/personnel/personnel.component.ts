@@ -106,7 +106,6 @@ export class PersonnelComponent {
   dataSource1!: any;
 
   displayedColumns = ['LibelleRetenue', 'Montant'];
-
   displayedColumns2 = ['LibellePrime', 'Montant'];
 
   formattedDate: string = '';
@@ -222,6 +221,7 @@ export class PersonnelComponent {
     console.log(form.value);
 
     const personnel: Personnel = form.value;
+
     personnel.nIDPERSONNEL = this.nIDPERSONNEL;
     personnel.tab_Retenues = this.listeRetenue;
     personnel.tab_Gains = this.listeGain;
@@ -233,7 +233,6 @@ export class PersonnelComponent {
     console.log(personnel.ModeRemuneration);
     console.log(this.imageSrc);
 
-    personnel.nIDPERSONNEL = this.nIDPERSONNEL;
     if (this.imageSrc == '../assets/images/logo-social.png') {
       this.imageSrc = '';
     } else {

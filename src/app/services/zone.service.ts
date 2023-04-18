@@ -52,6 +52,7 @@ export class ZoneService {
     return this.http.post<Arrondisssement[]>(environment.apiUrl, JSON.stringify(data));
   }
   
+ //recuprerer les arrondissements par rapport aux departements 
  
    Recuperations(iddepartement: string): Observable<Arrondisssement[]>{
       const data = {data: {IDDEPARTEMENT: iddepartement},route: this.uriRessources, method: "POST"};
