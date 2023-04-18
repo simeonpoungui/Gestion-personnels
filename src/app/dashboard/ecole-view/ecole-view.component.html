@@ -1,0 +1,418 @@
+<div class="pb-3">
+  <li class="nav-item">
+    <a class="nav-link" style="cursor: pointer" (click)="_location.back()"
+      ><i class="fa-solid fa-arrow-left"></i> Retour
+    </a>
+  </li>
+  <div>
+    <h1 class="text-center">Listes des Ecoles</h1>
+  </div>
+
+  <label for="" class="ms-2">Differents Filtre:</label>
+  <div class="row">
+    <div class="col-lg-6 mt-2">
+      <div class="row">
+        <div class="col-6">
+          <select
+            class="ms-2 form-select largeur"
+            aria-label="Default select example"
+            (change)="onSelectionChange($event)"
+          >
+            <option disabled>Filtrer Par Departement</option>
+            <option value="0">Tous les départements</option>
+            <option
+              *ngFor="let option of departementList"
+              [value]="option.IDDEPARTEMENT"
+            >
+              {{ option.NomDepartement }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <select
+            class="ms-2 form-select largeur"
+            aria-label="Default select example"
+            (change)="onSelectionArrondissement($event)"
+          >
+            <option disabled>Filtrer Par Arrondissement</option>
+            <option value="0">Tous les arrondissements</option>
+            <option
+              *ngFor="let option of arrondissementList"
+              [value]="option.IDARRONDISSEMENT"
+            >
+              {{ option.NomArron }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 mt-2 ">
+      <div class="row">
+        <div class="col-6">
+          <select
+            class="ms-2 form-select largeur"
+            aria-label="Default select example"
+            (change)="onSelectionQuartier($event)"
+          >
+            <option disabled>Filtrer Par Quartier</option>
+            <option value="0">Tous les Quartiers</option>
+            <option
+              *ngFor="let option of quartierList"
+              [value]="option.IDQUARTIER"
+            >
+              {{ option.NomQuartier }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <select
+            class="ms-2 form-select largeur"
+            aria-label="Default select example"
+            (change)="onSelectionZone($event)"
+          >
+            <option disabled>Filtrer Par Zone</option>
+            <option value="0">Toutes les zones</option>
+            <option *ngFor="let option of zoneList" [value]="option.IDZone">
+              {{ option.NomZone }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-4 ms-2">
+    <div class="row">
+      <div class="col-lg-3 mt-3">
+        <div class="row">
+          <div class="form-check col-5">
+            <input
+              class="form-check-input"
+              (input)="onSelectionPrescolaire($event)"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label pt-1" for="flexCheckDefault" style="font-size: 12px;">
+              Prescolaire
+            </label>
+          </div>
+          <div class="ms-2 form-check col-5">
+            <input
+              class="form-check-input"
+              (input)="onSelectionPrimaire($event)"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked"
+            />
+            <label class="form-check-label pt-1" for="flexCheckChecked">
+              Primaire
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 mt-3">
+        <div class="row">
+          <div class="ms-2 form-check   col-5 ">
+            <input
+              class="form-check-input"
+              (input)="onSelectionCollege($event)"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked"
+            />
+            <label class="form-check-label pt-1" for="flexCheckChecked">
+              College
+            </label>
+          </div>
+          <div class="ms-2 form-check  col-5">
+            <input
+              class="form-check-input"
+              (input)="onSelectionLycee($event)"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label pt-1" for="flexCheckDefault">
+              Lycee
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-4 mt-3">
+       <div class="row">
+        <div class="ms-2 form-check col-12">
+          <input
+            class="form-check-input"
+            (input)="onSelectionSuperieur($event)"
+            type="checkbox"
+            value=""
+            id="flexCheckChecked"
+          />
+          <label class="form-check-label pt-1" for="flexCheckChecked">
+            Superieur
+          </label>
+        </div>
+       </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="row pb-3">
+      <div class="d-flex align-items-center mt-3 col-lg-5">
+        <i
+          style="position: absolute"
+          class="ps-2 color"
+          data-feather="inbox"
+        ></i>
+        <input
+   
+          type="text"
+          (keyup)="applyFilter($event)"
+          placeholder="Recherchez par un code Etablissement..."
+          class="form-control shadow text-start px-5 text-uppercase"
+        />
+      </div>
+
+      <div class="col-lg-6 mt-3  text-end ">
+        <button (click)="Imprimer()" class="btn text-end btn-primary">Imprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8 table-responsive">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="table-striped w-100"
+      *ngIf="!isLoading; else loading"
+    >
+      <!-- Position Column -->
+
+      <!--         
+        <ng-container matColumnDef="CodeEtab">
+          <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Code de l'Etablissement</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 ">{{ element.CodeEtab }}</td>
+        </ng-container> -->
+
+      <ng-container matColumnDef="Fr_NomEcole">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Ecole</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.Fr_NomEcole }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_Adresse">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Adresse</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.Fr_Adresse }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="CodeEcoleDEC">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Code de l'Ecole DEC</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 ">
+            {{ element.CodeEcoleDEC }}
+          </td>
+        </ng-container> -->
+
+      <ng-container matColumnDef="TElephone">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Téléphone</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.TelEphone }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="NomPrenomResponsable">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Nom et Prenom du Responsable</th>
+            <td mat-cell *matCellDef="let element" class="">
+              {{ element.NomPrenomResponsable }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="TElephoneResponsable">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Telephone du Responsable</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.TElephoneResponsable }}
+            </td>
+          </ng-container> -->
+
+      <!-- <ng-container matColumnDef="Departement">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Departement</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Departement }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Commune">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Commune</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Commune }}
+            </td>
+          </ng-container> -->
+
+      <ng-container matColumnDef="Arrondissement">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Arrondissement</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.NomArrondissement }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="NomDepartement">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Département</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.NomDepartement }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="IdentifiantEtab">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Identifiant de l'Etablissement</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.IdentifiantEtab }}
+            </td>
+          </ng-container> -->
+
+      <ng-container matColumnDef="NbEleves">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Nombre Eleves</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.NbEleves }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="Cycle_PrEscolaire">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Cycle Prescolaire</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Cycle_PrEscolaire }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cycle_Primaire">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Cycle Primaire</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Cycle_Primaire }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cycle_College">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Cycle College</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Cycle_College }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cycle_Lycee">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Cycle Lycee</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Cycle_Lycee }}
+            </td>
+          </ng-container> -->
+      <!-- 
+          <ng-container matColumnDef="Cycle_Superieur">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Cycle Superieur</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Cycle_Superieur }}
+            
+            </td>
+          </ng-container>
+       
+          <ng-container matColumnDef="Courriel">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Courriel</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Courriel }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NumInscriptionDernier">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Num Inscription Dernier</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.NumInscriptionDernier }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="IDINSPECTIONS">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">ID INSPECTIONS</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.IDINSPECTIONS }}
+            </td>
+          </ng-container> -->
+      <!-- 
+          <ng-container matColumnDef="IDCENTRE_EXAMEN">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">ID du CENTRE_EXAMEN</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.IDCENTRE_EXAMEN }}
+            </td>
+          </ng-container> 
+
+          <ng-container matColumnDef="PositionGPS">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Position du GPS</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.PositionGPS }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="CodeDepartement">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Code de Departement</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.CodeDepartement }}
+            </td>
+          </ng-container> -->
+
+      <!--         
+          <ng-container matColumnDef="Nature">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Nature</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 ">
+              {{ element.Nature }}
+            </td>
+          </ng-container> -->
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell class="pe-1" *matHeaderCellDef>Actions</th>
+        <td mat-cell class="pe-2 d-flex py-2" *matCellDef="let element">
+          <button
+            type="button"
+            class="btn text-lowercase px-1 py-0"
+            (click)="edit(element.IDECOLES)"
+          >
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn text-lowercase px-1 py-0">
+            <i
+              class="fa fa-eye"
+              aria-hidden="true"
+              (click)="view(element.IDECOLES)"
+            ></i>
+          </button>
+          <button
+            type="button"
+            class="btn text-lowercase px-1 py-0"
+            (click)="delete(element)"
+          >
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 30]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+
+  <ng-template #loading>
+    <div class="fa-3x text-center mb-4 mt-4">
+      <label class="fs-3">{{ message }}</label
+      ><br /><br />
+      <i class="fas text-primary spinner-grow"></i><br />
+    </div>
+  </ng-template>
+</div>

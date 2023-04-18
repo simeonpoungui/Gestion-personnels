@@ -1,0 +1,88 @@
+<div>
+<div class="pb-3">
+  <li class="nav-item">
+    <a class="nav-link " (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div>
+      <h1 class="text-center">Table de retenue</h1>
+  </div>
+
+  <div>
+    <div class="d-flex justify-content-between align-items-center pb-3">
+      <div class="d-flex align-items-center" >
+          <i  style="position: absolute"
+          class="ps-2 color" data-feather="inbox"></i>
+          <input style="width: 30em;"
+            type="text"
+            (keyup)="applyFilter($event)" placeholder="Recherchez par un personnel..."
+            class="form-control shadow text-start px-5 text-uppercase"
+          />
+      </div>
+
+    </div>
+  </div>
+
+    <div class="mat-elevation-z8 table-responsive">
+      <table mat-table [dataSource]="dataSource" class="table-striped w-100" *ngIf="!isLoading; else loading"  >
+        <!-- Position Column -->
+
+
+        <ng-container matColumnDef="NumOrdre">
+          <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Numéro d'Ordre</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 ">{{ element.NumOrdre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="LibelleRetenue">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Retenue</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 ">{{ element.LibelleRetenue }}</td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="bDeductibleBaseImposable">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Deductible Base Imposable</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 " >
+            {{element.bDeductibleBaseImposable}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bEstCNSS">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Est CNSS</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 " >
+            {{element.bEstCNSS}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FormuleCalcul">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Formule Calcul</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 " >
+            {{element.FormuleCalcul}}
+          </td>
+        </ng-container> -->
+
+
+        <ng-container matColumnDef="Montant">
+          <th mat-header-cell *matHeaderCellDef class="pe-1 ">Montant</th>
+          <td mat-cell *matCellDef="let element" class="pe-1 " >
+            {{element.Montant}}
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+    <ng-template #loading>
+      <div class="fa-3x text-center mb-4 mt-4">
+        <label class="fs-3">chargement de la liste</label><br /><br />
+        <i class="fas text-primary spinner-grow"></i><br />
+      </div>
+    </ng-template>
+  </div>
+
+</div>
+

@@ -1,0 +1,17 @@
+<div>
+  <div class="d-flex bg-p fs-4 justify-content-between bg-primary align-items-center ">
+    <div class="text-white"> </div>
+    <button mat-button mat-dialog-close class="btn-close" aria-label="Close"></button>
+  </div>
+  <mat-dialog-content class="contenu">
+    {{ contenu }}
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="d-flex justify-content-between">
+    <div>
+      <button mat-button class="btn btn-valid bg-p m-1" [mat-dialog-close]="false" cdkFocusInitial>Annuler</button>
+    </div>
+    <div>
+      <button mat-button class="btn btn-valid bg-p m-1" [mat-dialog-close]="true" cdkFocusInitial>Oui Supprimer !</button>
+    </div>
+  </mat-dialog-actions>
+</div>

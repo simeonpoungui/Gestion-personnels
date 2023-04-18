@@ -1,0 +1,113 @@
+<div class="login-page ">
+  <div
+    class="d-flex position-absolute top-50 start-50  shadow translate-middle bg-white"
+    style="width: 50em"
+  >
+    <div class="col-lg-6 d-md-none d-sm-none d-lg-block img-logo text-end">
+      <img src="assets/images/connexion.jpg" class="w-100" alt="" />
+    </div>
+    <div class="col-lg-5 m-auto col-md-12 col-sm-12">
+      <div class="" style="border-radius: 0px">
+        <div class="card" style="border-radius: 0px">
+          <div class="card-body">
+            <div class="authent-logo">
+              <img src="../../assets/images/logo@2x.png" alt="" />
+            </div>
+            <div class="authent-text">
+              <p>Bienvenue</p>
+              <p>Connecter vous s'il vous plaît !</p>
+            </div>
+
+            <form (submit)="onSubmit()">
+              <div class="mb-3">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    id="sLogin"
+                    name="sLogin"
+                    required="ce champ ne doit pas etre vide"
+                    [(ngModel)]="sLogin"
+                    class="form-control"
+                    placeholder="cyberMatic"
+                  />
+                  <label for="Login">Login</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-floating d-flex align-items-center">
+                  <input
+                    type="password"
+                    id="sPasseWord"
+                    required="ce champ ne doit pas etre vide"
+                    name="sPasseWord"
+                    [(ngModel)]="sPasseWord"
+                    type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                    class="form-control"
+                    placeholder="mot de passe"
+                  />
+                  <label for="password">Mot de Passe</label>
+                  <a
+                    style="cursor: pointer"
+                    class="text-black"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    <i
+                      *ngIf="!isPasswordVisible"
+                      style="
+                        position: relative;
+                        margin-left: -40px;
+                        font-size: 17px;
+                      "
+                      class="fa-sharp fa-solid fa-eye pt-2"
+                    ></i>
+                    <i
+                      *ngIf="isPasswordVisible"
+                      style="
+                        position: relative;
+                        margin-left: -40px;
+                        font-size: 17px;
+                      "
+                      class="fa-solid fa-eye-slash pt-2"
+                    ></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  [disabled]="isFormValid()"
+                  *ngIf="!isLoading; else loading"
+                  class="btn btn-info m-b-xs"
+                >
+                  Connexion
+                </button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="fa-3x text-center mb-2 mt-2">
+      <span class="fs-5">Connexion en cours !!!</span> <br /><br />
+      <i class="fas text-primary text-center spinner-grow"></i><br />
+    </div>
+  </ng-template>
+  <!-- Javascripts -->
+  <script>
+    function togglePassword() {
+      var passwordInput = document.getElementById("passwordInput");
+      console.log(passwordInput);
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        console.log("cliquer");
+      } else {
+        passwordInput.type = "password";
+        console.log("cliquer");
+      }
+    }
+  </script>
+</div>

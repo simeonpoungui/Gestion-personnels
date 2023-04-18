@@ -1,0 +1,80 @@
+<div class="pb-3">
+  <li class="nav-item">
+     <a class="nav-link "  style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+   </li>
+   <div>
+       <h1 class="text-center">Listes des Produits</h1>
+   </div>
+
+   <div class="mb-3 col-12 col-md-8 col-lg-6">
+     <div class="d-flex align-items-center">
+       <i  style="position: absolute"
+       class="ps-2 color" data-feather="inbox"></i>
+
+
+
+       <input style="width: 30em;"
+         type="text"
+         (keyup)="applyFilter($event)" placeholder="Recherchez par un produit..."
+         class="form-control shadow text-start px-5 text-uppercase"
+       />
+     </div>
+   </div>
+
+
+     <div class="mat-elevation-z8 table-responsive">
+       <table mat-table [dataSource]="dataSource" class="table-striped w-100" *ngIf="!isLoading; else loading" >
+         <!-- Position Column -->
+
+
+         <ng-container matColumnDef="Code">
+           <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Code</th>
+           <td mat-cell *matCellDef="let element" class="pe-1">{{ element.CodeProduit }}</td>
+         </ng-container>
+
+         <ng-container matColumnDef="Libelle">
+           <th mat-header-cell *matHeaderCellDef class="pe-1 ">Libelle du Produit</th>
+           <td mat-cell *matCellDef="let element" class="pe-1">{{ element.LibelleProduit }}</td>
+         </ng-container>
+
+         <ng-container matColumnDef="Montant">
+           <th mat-header-cell *matHeaderCellDef class="pe-1 ">Montant</th>
+           <td mat-cell *matCellDef="let element" class="pe-1" >
+             {{element.Montant}}
+           </td>
+         </ng-container>
+
+
+
+
+         <ng-container matColumnDef="Actions">
+             <th mat-header-cell class="pe-1 " *matHeaderCellDef>Actions</th>
+             <td mat-cell class="pe-2 d-flex py-2 " *matCellDef="let element">
+               <button type="button" class="btn text-lowercase px-1 py-0" (click)="edit(element.IDPRODUIT)"><i class="fa fa-pencil " aria-hidden="true"></i></button>
+               <button type="button" class="btn text-lowercase px-1 py-0"><i class="fa fa-eye " aria-hidden="true" (click)="view(element.IDPRODUIT)"></i></button>
+               <button type="button" class="btn text-lowercase px-1 py-0" (click)="delete(element)"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+
+             </td>
+         </ng-container>
+
+
+
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+       </table>
+
+       <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+       showFirstLastButtons
+       aria-label="Select page of periodic elements">
+         </mat-paginator>
+     </div>
+     <ng-template #loading>
+       <div class="fa-3x text-center mb-4 mt-4">
+         <label class="fs-3">chargement des produits</label><br /><br />
+         <i class="fas text-primary spinner-grow"></i><br />
+       </div>
+     </ng-template>
+   </div>
+
+
+

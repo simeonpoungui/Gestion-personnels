@@ -1,0 +1,93 @@
+<div class="pb-3">
+  <li class="nav-item">
+    <a class="nav-link" style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+    <div>
+        <h1 class="text-center">Listes des Arrondissements</h1>
+    </div>
+  
+    <div>
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <div class="d-flex align-items-center" >
+            <i  style="position: absolute"
+            class="ps-2 color" data-feather="inbox"></i>
+            <input style="width: 30em;"
+              type="text"
+              (keyup)="applyFilter($event)" placeholder="Recherchez par un arrondissement..."
+              class="form-control shadow text-start px-5 text-uppercase"
+            />
+        </div>
+        
+       <label for="">Filtrer par département:</label>
+        <select class="form-select w-25" aria-label="Default select example" (change)="onSelectionChange($event)">
+          <option value="0">Tous les départements</option>
+          <option   *ngFor="let option of departementList" [value]="option.IDDEPARTEMENT" > {{ option.NomDepartement}} </option>
+        
+        </select>
+      
+      </div>
+    </div>
+     
+    
+      <div class="mat-elevation-z8 table-responsive">
+        <table mat-table [dataSource]="dataSource" class="table-striped w-100" *ngIf="!isLoading; else loading">
+          <!-- Position Column -->
+    
+          
+          <ng-container matColumnDef="NomArron">
+            <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Arrondissement</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.NomArron
+
+            }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Ordre">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Numero</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.Ordre }}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="IDDEPARTEMENT">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">DEPARTEMENT</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.NomDepartement}}
+            </td>
+          </ng-container>
+    
+         
+        
+      
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell class="pe-1 " *matHeaderCellDef>Actions</th>
+              <td mat-cell class="pe-2 d-flex py-2" *matCellDef="let element">
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="edit(element.IDARRONDISSEMENT)"><i class="fa fa-pencil " aria-hidden="true"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0"><i class="fa fa-eye " aria-hidden="true" (click)="view(element.IDARRONDISSEMENT)"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="delete(element)"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+    
+              </td>
+          </ng-container>
+    
+        
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+          </mat-paginator>
+      </div>
+      
+
+      <ng-template #loading>
+        <div class="fa-3x text-center mb-4 mt-4">
+          <label class="fs-3">chargement de la liste</label><br /><br />
+          <i class="fas text-primary spinner-grow"></i><br />
+        </div>
+      </ng-template>
+
+    </div>
+    
+   
+    
+    

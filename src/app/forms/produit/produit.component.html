@@ -1,0 +1,257 @@
+<div class="row">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2>
+            {{ action === "view" ? "Fiche du Produit" : "" }}
+            {{ action === "edit" ? "Modification du Produit" : "" }}
+            {{ action === "view" || action === "edit" ? LibelleProduit : "" }}
+            {{ !action ? "  Créer un Produit" : "" }}
+          </h2>
+        </h3>
+        <form
+          #produitForm="ngForm"
+          (ngSubmit)="onSubmitForm(produitForm)"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">Code</label>
+            <input
+              [readonly]="action == 'view'"
+              maxlength="6"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="CodeProduit"
+              [(ngModel)]="CodeProduit"
+              required=""
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Libelle</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="LibelleProduit"
+              [(ngModel)]="LibelleProduit"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">NumOrdre</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="NumOrdre"
+              [(ngModel)]="NumOrdre"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Montant</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Montant"
+              [(ngModel)]="Montant"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">TauxTVA</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="TauxTVA"
+              [(ngModel)]="TauxTVA"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Compte Associé</label
+            >
+
+            <select
+              class="text-capitalize form-select select-box form-control hauteur"
+              [(ngModel)]="CompteAssocie"
+              name="CompteAssocie"
+              required=""
+            >
+              <option
+                *ngFor="let compte of listcompte"
+                [value]="compte.CodeCompte"
+              >
+                {{ compte.CodeCompte }}
+              </option>
+            </select>
+
+          </div>
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Liasse Débit</label>
+
+            <select
+            class="text-capitalize select-box form-select form-control hauteur"
+            [(ngModel)]="LiasseDebit"
+            name="LiasseDebit"
+
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option  *ngFor="let option of liasse"
+            [value]="option.CodeLiasse">
+               {{option.LibelleLiasse}}
+            </option>
+
+          </select>
+          </div>
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Liasse Crédit</label>
+
+            <select
+            class="text-capitalize select-box form-select form-control hauteur"
+            [(ngModel)]="LiasseCredit"
+            name="LiasseCredit"
+            (change)="onSelectionChange($event)"
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option  *ngFor="let option of liasse"
+            [value]="option.CodeLiasse">
+               {{option.LibelleLiasse}}
+            </option>
+          </select>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Date d'écheance</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="date"
+              class="form-control hauteur"
+              name="DateEcheance"
+              [(ngModel)]="DateEcheance"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+
+         <div class="row mt-5">
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Obligatoire pour l'Inscription</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="ObligatoireInscription"
+              [(ngModel)]="ObligatoireInscription"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Accepte les Réductions</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="AccepteReduction"
+              [(ngModel)]="AccepteReduction"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Accepte Majoration</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="AccepteMajoration"
+              [(ngModel)]="AccepteMajoration"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Occasionnel</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Occasionnel"
+              [(ngModel)]="Occasionnel"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Obligatoire Pour Documents</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="ObligatoirePourDocuments"
+              [(ngModel)]="ObligatoirePourDocuments"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Nouveaux Clients</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="NouveauxClients"
+              [(ngModel)]="NouveauxClients"
+              required
+            />
+          </div>
+         </div>
+          <div class="col-md-4  mt-5" *ngIf="action !== 'view'">
+            <button
+
+              type="submit"
+              *ngIf="!isLoading; else loading"
+              class="btn bg-primary form-control text-white btn-primary"
+            >
+              {{ action === "edit" ? "Modifier" : "Créer" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5 mb-2 mt-2">{{message}}</span> <br><br>
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

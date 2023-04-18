@@ -1,0 +1,119 @@
+<div class="row">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2>
+            {{ action === "view" ? "Fiche d'une zone" : "" }}
+            {{ action === "edit" ? "Modifier une zone" : "" }}
+            {{ action === "view" || action === "edit" ? IDZone : "" }}
+            {{ !action ? "Nouvelle zone" : "" }}
+          </h2>
+        </h3>
+
+        <p></p>
+        <form
+          #zoneForm="ngForm"
+          (ngSubmit)="onSubmitForm(zoneForm)"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Departement</label>
+
+            <select
+              class="text-capitalize form-select select-box form-control hauteur"
+              [(ngModel)]="IDDEPARTEMENT"
+              name="IDDEPARTEMENT"
+              (change)="onSelectionChange($event)"
+              required=""
+            >
+              <option value="" disabled>-- selectionner ici --</option>
+              <option
+                *ngFor="let option of departementList"
+                [value]="option.IDDEPARTEMENT"
+              >
+                {{ option.NomDepartement }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">
+              ARRONDISSEMENT</label
+            >
+
+            <select
+              class="text-capitalize select-box form-select form-control hauteur"
+              [(ngModel)]="IDARRONDISSEMENT"
+              name="IDARRONDISSEMENT"
+              required=""
+            >
+              <option value="" disabled>-- selectionner ici --</option>
+              <option
+                *ngFor="let option of arrondissementList"
+                [value]="option.IDARRONDISSEMENT"
+              >
+                {{ option.NomArron }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label"
+              >Code de la Zone</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="CodeZone"
+              [(ngModel)]="CodeZone"
+              required=""
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Nom du zone</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="NomZone"
+                [(ngModel)]="NomZone"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="mt-3 col-md-4"  *ngIf="action != 'view'">
+              <button
+                *ngIf="!isLoading; else loading"
+                type="submit"
+                class="btn bg-primary text-light w-100 m-auto mb-3 shadow p-2"
+              >
+                {{
+                  action === "edit"
+                    ? "Modifier une zone"
+                    : "creer une zone"
+                }}
+              </button>
+            </div>
+          </div>
+       
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5">Création de la zone en cours !!!</span> <br><br>
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

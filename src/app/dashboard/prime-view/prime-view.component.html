@@ -1,0 +1,197 @@
+<div class="Global row">
+  <li class="nav-item">
+    <a class="nav-link "  style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+<div class="pb-3 col-12 col-sm-6">
+
+    <div>
+        <h1 class="text-center">Listes des Primes</h1>
+    </div>
+
+        <button type="button" (click)="create()"  class="btn btn-primary">Ajouter une nouvelle prime </button>
+    <div>
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <div class="d-flex align-items-center" >
+            <i  style="position: absolute"
+            class="ps-2 color" data-feather="inbox"></i>
+            <input style="width: 20rem;"
+              type="text"
+              (keyup)="applyFilter($event)" placeholder="Recherchez une prime..."
+              class="form-control shadow text-start px-5 text-uppercase"
+            />
+        </div>
+      </div>
+    </div>
+
+
+      <div class="mat-elevation-z8 table-responsive">
+        <table mat-table [dataSource]="dataSource" class="table-striped w-100" *ngIf="!isLoading; else loading">
+          <!-- Position Column -->
+
+
+          <ng-container matColumnDef="NumOrdre">
+            <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Numéro</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.NumOrdre
+
+            }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="LibellePrime">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Libelle</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.LibellePrime }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="bImposable" >
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Imposable</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.bImposable == true ? 'Oui' : 'Non'}}
+            </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="FormuleCalcul">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Formule  de Calcul</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.FormuleCalcul}}
+            </td>
+          </ng-container> -->
+
+
+
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell class="pe-1 " *matHeaderCellDef>Actions</th>
+              <td mat-cell class="pe-2 d-flex py-2" *matCellDef="let element">
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="edit(element)"><i class="fa fa-pencil " aria-hidden="true"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0"><i class="fa fa-eye " aria-hidden="true" (click)="view(element)"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="delete(element)"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+
+              </td>
+          </ng-container>
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+          </mat-paginator>
+      </div>
+
+
+      <ng-template #loading>
+        <div class="fa-3x text-center mb-4 mt-4">
+          <label class="fs-3">chargement des primes</label><br /><br />
+          <i class="fas text-primary spinner-grow"></i><br />
+        </div>
+      </ng-template>
+
+</div>
+
+
+
+   <!--Deuxieme partie-->
+
+   <div class="pb-3 col-12 col-sm-6">
+
+    <div>
+        <h1 class="text-center">Listes des Retenues</h1>
+    </div>
+
+        <button type="button" (click)="create2()"  class="btn btn-primary">Ajouter une nouveau retenue </button>
+    <div>
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <div class="d-flex align-items-center" >
+            <i  style="position: absolute"
+            class="ps-2 color" data-feather="inbox"></i>
+            <input style="width: 20rem;"
+              type="text"
+              (keyup)="applyFilter($event)" placeholder="Recherchez une retenue..."
+              class="form-control shadow text-start px-5 text-uppercase"
+            />
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+      <div class="mat-elevation-z8 table-responsive">
+        <table mat-table [dataSource]="dataSource2" class="table-striped w-100" *ngIf="!isLoading; else loading">
+          <!-- Position Column -->
+
+
+          <ng-container matColumnDef="NumOrdre">
+            <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Numéro</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.NumOrdre
+
+            }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="LibelleRetenue">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Libelle</th>
+            <td mat-cell *matCellDef="let element" class="pe-1">{{ element.LibelleRetenue }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="bDeductibleBaseImposable">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Deductible Base Imposable</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.bDeductibleBaseImposable  == true ? 'Oui' : 'Non' }}
+            </td>
+          </ng-container>
+<!--
+          <ng-container matColumnDef="FormuleCalcul">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Formule  de Calcul</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.FormuleCalcul}}
+            </td>
+          </ng-container> -->
+
+
+          <ng-container matColumnDef="bEstCNSS">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Est CNSS</th>
+            <td mat-cell *matCellDef="let element" class="pe-1" >
+              {{element.bEstCNSS == true ? 'Oui' : 'Non'}}
+            </td>
+          </ng-container>
+
+
+
+
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell class="pe-1 " *matHeaderCellDef>Actions</th>
+              <td mat-cell class="pe-2 d-flex py-2" *matCellDef="let element">
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="edit1(element)"><i class="fa fa-pencil " aria-hidden="true"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0"><i class="fa fa-eye " aria-hidden="true" (click)="view1(element)"></i></button>
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="delete1(element)"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+
+              </td>
+          </ng-container>
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+          </mat-paginator>
+      </div>
+
+
+      <ng-template #loading>
+        <div class="fa-3x text-center mb-4 mt-4">
+          <label class="fs-3">chargement des retenues</label><br /><br />
+          <i class="fas text-primary spinner-grow"></i><br />
+        </div>
+      </ng-template>
+
+</div>
+
+</div>

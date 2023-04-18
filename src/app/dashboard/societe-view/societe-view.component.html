@@ -1,0 +1,61 @@
+<div class="container shadow mt-1"  *ngIf="!isLoading; else loading">
+  <li class="nav-item">
+    <a class="nav-link "  style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="row">
+    <div class="col-lg-6 p-4 bg-white">
+      <span class="text-start">logo</span>
+      <div class="w-50 mt-5">
+        <img
+          [src]="Logo"
+          class="w-100"
+          alt=""
+        />
+      </div>
+      <p></p>
+      <div>
+        <label for="" class="mt-5">code de la Société</label>
+        <div class="col-lg-6 mt-2 form-control" style="height: 45px">
+          <span>{{CodeSociete}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 bg-white p-3">
+      <label for="">Nom de la Société</label>
+      <div class="col-lg-6 form-control" style="height: 45px">
+        <span>{{Nom}}</span>
+      </div>
+      <label for="" class="mt-2">Adresse de la Société</label>
+      <div class="col-lg-6 form-control" style="height: 45px">
+        <span>{{Adresse}}</span>
+      </div>
+
+      <label for="" class="mt-2">Mobile de la Société</label>
+      <div class="col-lg-6 form-control" style="height: 45px">
+        <span>{{Mobile}}</span>
+      </div>
+      <label for="" class="mt-2">Site Web</label>
+      <div class="col-lg-6 form-control" style="height: 45px">
+        <span>{{SiteWeb}}</span>
+      </div>
+
+      <label for="" class="mt-2">Responsable de la Société</label>
+      <div class="col-lg-6 form-control" style="height: 45px">
+        <span>{{Responsable}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="container p-3 d-flex justify-content-end bg-white">
+
+    <div>  <button (click)="edit(IDSociete)" type="button" class="btn btn-primary">Modifier</button></div>
+  
+  </div>
+</div>
+
+
+<ng-template #loading>
+  <div class="fa-3x text-center mb-4 mt-4">
+    <label class="fs-3">Patientez un instant</label><br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

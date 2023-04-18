@@ -1,0 +1,201 @@
+<div class="row">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2>
+            {{ action === "view" ? "Fiche du Plan Comptable" : "" }}
+            {{ action === "edit" ? "Modification du Plan Comptable : " : "" }}
+            {{ action === "view" || action === "edit" ? LibelleCompte : "" }}
+            {{ !action ? "  Créer un compte" : "" }}
+          </h2>
+        </h3>
+
+        <p></p>
+        <form
+          #departementForm="ngForm"
+          (ngSubmit)="onSubmitForm(departementForm)"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label"
+              >Code compte</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="CodeCompte"
+              [(ngModel)]="CodeCompte"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Libelle Compte</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="LibelleCompte"
+                [(ngModel)]="LibelleCompte"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Liasse Débit</label>
+
+            <select
+            class="text-capitalize select-box form-select form-control hauteur"
+            [(ngModel)]="LiasseDebit"
+            name="LiasseDebit"
+
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option  *ngFor="let option of liasse"
+            [value]="option.CodeLiasse">
+               {{option.LibelleLiasse}}
+            </option>
+
+          </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Liasse Crédit</label>
+
+            <select
+            class="text-capitalize select-box form-select form-control hauteur"
+            [(ngModel)]="LiasseCredit"
+            name="LiasseCredit"
+
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option  *ngFor="let option of liasse"
+            [value]="option.CodeLiasse">
+               {{option.LibelleLiasse}}
+            </option>
+          </select>
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-group has-validation">
+              <label for="validationCustomUsername" class="form-label"
+                >Sens DC</label
+              >
+              <div class="input-group has-validation">
+                <select
+                  class="form-select"
+                  name="SensDC"
+                  [(ngModel)]="SensDC"
+                  aria-label="Default select example"
+                >
+                  <option value="0"></option>
+                  <option value="1">Crédit</option>
+                  <option value="2">Débit</option>
+                  <option value="3">Credit Debit</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Compte De Contre Partie</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="CompteDeContrePartie"
+                [(ngModel)]="CompteDeContrePartie"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Compte De Cumul</label
+            >
+
+            <select
+              class="text-capitalize form-select select-box form-control hauteur"
+              [(ngModel)]="CompteDeCumul"
+              name="CompteDeCumul"
+              required=""
+            >
+              <option
+                *ngFor="let compte of listcompte"
+                [value]="compte.IDCOMPTE"
+              >
+                {{ compte.CodeCompte }}
+              </option>
+            </select>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  name="CompteDeBanque"
+                  [(ngModel)]="CompteDeBanque"
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Compte De Banque
+                </label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  name="EstUnChapitre"
+                  [(ngModel)]="EstUnChapitre"
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Est Un Chapitre
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12" *ngIf="action !== 'view'">
+            <button
+              style="width: 30em"
+              type="submit"
+              class="btn btn-primary"
+              *ngIf="!isLoading; else loading"
+            >
+              {{ action === "edit" ? "Modifier" : "Créer" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5">{{ message }}</span> <br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

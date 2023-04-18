@@ -1,0 +1,169 @@
+<div class="pb-3">
+
+    <div>
+        <h1 class="text-center">Listes des personnels</h1>
+    </div>
+
+    <div>
+      <div class="row pb-3">
+     <div class="col-lg-12  mt-3 ">
+      <div class="row">
+     
+      <div class="col-lg-4 mt-2">
+        <select class="ms-2 form-select largeur" aria-label="Default select example" (change)="onSelectionCivilite($event)">
+          <option disabled>Filtrer par Civilité</option>
+          <option value="0">Tous les civilités</option>
+          <option  value="1"> Homme</option>
+          <option value="2" > Femme </option>
+        </select>
+      </div>
+
+      <div class="col-lg-4 mt-2">
+        <select class="ms-2 form-select largeur" aria-label="Default select example" (change)="onSelectionEtatCompte($event)">
+          <option disabled>Filtrer par Etat de compte</option>
+          <option value="0">Tous les Etats</option>
+          <option value="1"> 1 </option>
+          <option value="2"> 2 </option>
+        </select>
+      </div>
+      <div class="col-lg-4  mt-2">
+        <select class="ms-2 form-select largeur" aria-label="Default select example" (change)="onSelectionService($event)">
+          <option disabled>Filtrer par Service</option>
+          <option value="0">Tous les services</option>
+          <option  *ngFor="let service of listService" [value]="service.IDSERVICES" > {{service.NomService}} </option>
+        </select>
+      </div>
+
+      </div>
+     </div>
+      </div>
+      <div class="row">
+      
+          <div class="d-flex align-items-center mt-3 mb-2 col-lg-4 mt-2" >
+            <i  style="position: absolute"
+            class="ps-1 color" data-feather="inbox"></i>
+            <input
+              type="text"
+              
+              style="font-size: 14px;"
+              (keyup)="applyFilter($event)" placeholder="Recherchez par un personnel..."
+              class="form-control shadow text-start px-5"
+            />
+        </div>
+
+        <div class="col-lg-4"></div>
+       
+        <div class="col-lg-4 d-flex justify-content-end mt-3 gap-2  mb-2">
+          <div>
+            <button type="button" (click)="view()"  class="btn btn-primary">Fiche de l'agent </button>
+          </div>
+          <div>
+            <button (click)="Imprimer()" class="btn btn-primary">
+              Imprimer
+             </button>
+           </div>
+         </div>
+   
+      </div>
+    </div>
+
+      <div class="mat-elevation-z8 table-responsive">
+        <table mat-table [dataSource]="dataSource"  class="table-striped w-100" *ngIf="!isLoading; else loading"  >
+          <!-- Position Column -->
+
+          <ng-container matColumnDef="nIDPERSONNEL">
+            <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Code Agent</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 " (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }"> {{ element.nIDPERSONNEL.toString().padStart(6, '0') }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Nom">
+            <th  mat-header-cell *matHeaderCellDef class="pe-1 ">Nom</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">{{ element.Nom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Prenom">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Prenom</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">{{ element.Prenom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Civilite">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Civilite</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">{{ element.Civilite=='1'?'homme':'femme' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="DateNaissance">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 " >Date de Naissance</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 text-center" (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }" >
+              {{convertToValideDate(element.DateNaissance)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="LieuNaissance">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Lieu de Naissance</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 " (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+              {{element.LieuNaissance }}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Ville">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Ville</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+              {{element.Ville}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Mobile1">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Mobile1</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+              {{element.Mobile1}}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Mobile2">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Mobile2</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+              {{element.Mobile2}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Courriel">
+            <th mat-header-cell *matHeaderCellDef class="pe-1 ">Courriel</th>
+            <td mat-cell *matCellDef="let element" class="pe-1 "  (click)="onClickLine(element)" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+              {{element.Courriel}}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions">
+              <th mat-header-cell class="pe-1 " *matHeaderCellDef>Actions</th>
+              <td mat-cell class="pe-2 d-flex py-2" *matCellDef="let element" [ngClass]="{ 'bg-color': personnelSelected == element, 'cursor':personnelSelected }">
+                <!-- <button type="button" class="btn text-lowercase px-1 py-0"  (click)="edit(element.nIDPERSONNEL)"><i class="fa fa-pencil " aria-hidden="true"></i></button> -->
+                <!-- <button type="button" class="btn text-lowercase px-1 py-0"><i class="fa fa-eye " aria-hidden="true" (click)="view(element.nIDPERSONNEL)"></i></button> -->
+                <button type="button" class="btn text-lowercase px-1 py-0" (click)="delete(element)"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+
+              </td>
+          </ng-container>
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+          </mat-paginator>
+      </div>
+      <ng-template #loading>
+        <div class="fa-3x text-center mb-4 mt-4">
+          <label class="fs-3">chargement des personnels</label><br /><br />
+          <i class="fas text-primary spinner-grow"></i><br />
+        </div>
+      </ng-template>
+    </div>
+
+
+

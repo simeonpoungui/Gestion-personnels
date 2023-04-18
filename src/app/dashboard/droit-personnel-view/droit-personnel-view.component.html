@@ -1,0 +1,636 @@
+
+
+
+<li class="nav-item mb-3">
+  <a class="nav-link" style="cursor: pointer" (click)="_location.back()"
+    ><i class="fa-solid fa-arrow-left"></i> Retour
+  </a>
+</li>
+
+<div class="Titre d-flex">
+  <button (click)="onSubmitForm(personnel)" class="btn btn-primary">Valider</button>
+ </div>
+ <hr>
+
+
+
+ <form  action=""  #personnel="ngForm" class="mt-3" >
+ <mat-tab-group *ngIf="isLoading; else loading">
+  <mat-tab label="Informations Générales">
+   <div class="container">
+
+
+   <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+
+
+          <p></p>
+          <div class="row g-3 needs-validation"
+          >
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="mt-4">
+                <div class="" style="width: 25em;">
+                  <img   [src]="Photo" class="mt-2 w-100 shadow" alt="" style="height: 200px;">
+                </div>
+
+             <div class="mt-5" style="width: 25em;">
+              <input
+
+              type="file"
+              class="form-control"
+              name="Photo"
+              [(ngModel)]="Photo"
+              required=""
+              (change)="onFileSelected($event)"
+            />
+             </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="col-12 mt-4">
+                <label for="validationCustom01" class="form-label">Nom</label>
+                <input
+
+
+                  type="text"
+                  class="form-control hauteur hauteur"
+                  name="Nom"
+                  [(ngModel)]="Nom"
+                  required=""
+                />
+              </div>
+              <div class="col-12">
+                <label for="validationCustom02" class="form-label">Prenom</label>
+                <input
+
+                  type="text"
+                  class="form-control hauteur"
+                  name="Prenom"
+                  [(ngModel)]="Prenom"
+                  required=""
+                />
+              </div>
+
+
+
+              <div class="col-12">
+                <label for="validationCustom05" class="form-label">Civilité</label>
+
+                <select
+                class="select-box form-control hauteur"
+                [(ngModel)]="Civilite"
+                name="Civilite"
+                required=""
+                >
+                <option value="" disabled>-- selectionner ici --</option>
+
+                  <option value="1">Homme</option>
+                  <option value="2">Femme</option>
+
+
+              </select>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-12">
+                <label for="validationCustomUsername" class="form-label"
+                  >Date de Naissance</label
+                >
+                <div class="input-group has-validation">
+                  <input
+
+
+                    type="date"
+                    class="form-control hauteur"
+                    name="DateNaissance"
+                    [(ngModel)]="DateNaissance"
+                    required=""
+                  />
+                </div>
+              </div>
+              <div class="col-12">
+                <label for="validationCustom03" class="form-label">Lieu de Naissance</label>
+                <input
+
+                  type="text"
+                  class="form-control hauteur"
+                  name="LieuNaissance"
+                  [(ngModel)]="LieuNaissance"
+                  required=""
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <label for="datalist" class="form-label">
+              NATIONALITE
+            </label>
+
+            <input
+              class="form-control"
+              [(ngModel)]="Nationalite"
+              name="IDNATIONALITE"
+              list="gfglist"
+              id="datalist"
+
+              placeholder="rechercher ou saisissez votre nationalité"
+            />
+            <datalist id="gfglist">
+
+              <option
+                *ngFor="let option of nationaliteList"
+                [value]="option.IDNATIONALITE"
+              >
+              {{ option.Nationalite }}
+              </option>
+            </datalist>
+          </div>
+
+
+
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Ville</label
+              >
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="Ville"
+                [(ngModel)]="Ville"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Mobile 1 </label
+              >
+              <input
+
+                type="number"
+                class="form-control hauteur"
+                name="Mobile1"
+                [(ngModel)]="Mobile1"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label">Mobile 2</label>
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="Mobile2"
+                [(ngModel)]="Mobile2"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label">Courriel</label>
+              <input
+
+                type="email"
+                class="form-control hauteur"
+                name="Courriel"
+                [(ngModel)]="Courriel"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Nombre d'enfants</label>
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="NombreEnfants"
+                [(ngModel)]="NombreEnfants"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label">Situation Familiale</label>
+
+              <select
+              class="select-box form-control hauteur"
+              [(ngModel)]="SituationFamiliale"
+              name="SituationFamiliale"
+              required=""
+              >
+              <option value="" disabled>-- selectionner ici --</option>
+
+                <option value="1">Cilibataire</option>
+                <option value="2">Marié (e)</option>
+                <option value="3">Divorcé (e)</option>
+                <option value="3">Veuf (ve)</option>
+
+            </select>
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Identifiant Badge</label
+              >
+              <input
+                type="text"
+                class="form-control hauteur"
+                name="IdentifiantBadge"
+                [(ngModel)]="IdentifiantBadge"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+
+            <div class="col-4">
+              <label for="validationCustom04" class="form-label"
+                >Services</label
+                >
+
+
+                <select
+                class="text-capitalize select-box form-select hauteur"
+                [(ngModel)]="IDSERVICE"
+                name="IDSERVICE"
+                required=""
+              >
+                <option value="" disabled>-- selectionner ici --</option>
+                <option
+                  *ngFor="let service of listeService"
+                  [value]="service.IDSERVICES"
+                >
+                  {{ service.NomService }}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Num CNI</label
+              >
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="NumCNI"
+                [(ngModel)]="NumCNI"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Login</label
+              >
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="Login"
+                [(ngModel)]="Login"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Mot de passe</label
+              >
+              <input
+
+                type="text"
+                class="form-control hauteur"
+                name="Password"
+                [(ngModel)]="Password"
+                required=""
+              />
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+
+
+            <div class="col-md-4">
+              <label for="validationCustom05" class="form-label"
+                >Etat Compte </label
+              >
+             <select class="form-control form-select" name="EtatCompte" [(ngModel)]="EtatCompte" id="">
+              <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+             </select>
+            </div>
+
+
+            <div class="col-lg-6">
+              <label for="">Signature</label>
+              <div class="mt-4">
+                <div class="m-auto" style="width: 20em;">
+                  <img   [src]="Signature" class="mt-2 w-100 shadow" alt="" style="height: 5em;">
+                </div>
+
+             <div class="m-auto" style="width: 20em;">
+              <input
+
+              type="file"
+              class="form-control"
+              name="Photo"
+              [(ngModel)]="Signature"
+              required=""
+              (change)="onFileSelectede($event)"
+            />
+             </div>
+              </div>
+            </div>
+
+            <div class="col-md-4" *ngIf="edit">
+              <label for="validationCustom05" class="form-label"
+                >Date de Modification</label
+              >
+              <input
+
+                class=" form-control"
+                type="datetime-local"
+                name="DateModification"
+                [(ngModel)]="DateModification"
+                required
+              />
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+   </div>
+  </mat-tab>
+  <mat-tab label="Informations Comptables ">
+    <!-- Contenu de l'onglet 2 -->
+    <div class="container pt-4">
+
+      <div class="row">
+
+        <div class="col-12 col-sm-6 mb-3">
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bAdmin"  [(ngModel)]="bAdmin" required />
+            <label class="form-check-label pt-1 ps-2" for="bAdmin">
+              A les mêmes droits comptables que le surperviseur
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input form-control"
+              type="checkbox"
+              name="ModifPasswordNecessaire"
+              [(ngModel)]="ModifPasswordNecessaire"
+              required
+            />
+            <label
+              class="form-check-label pt-1 ps-2"
+              for="ModifPasswordNecessaire"
+            >
+            Modifier le mot de passe Necessaire
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bDroit_GestionAgents"  [(ngModel)]="bDroit_GestionAgents" required />
+            <label class="form-check-label pt-1 ps-2" for="bDroit_GestionAgents">
+              Gerer les Agent
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bDroit_EncaisserPaiement"  [(ngModel)]="bDroit_EncaisserPaiement" required />
+            <label class="form-check-label pt-1 ps-2" for="bDroit_EncaisserPaiement">
+              Encaisser les droits de payement
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bDroitSupprimerEcriture"  [(ngModel)]="bDroitSupprimerEcriture" required />
+            <label class="form-check-label pt-1 ps-2" for="bDroitSupprimerEcriture">
+             Droit de Supprission Ecriture
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bDroitAjouteProduit"  [(ngModel)]="bDroitAjouteProduit" required />
+            <label class="form-check-label pt-1 ps-2" for="bDroitAjouteProduit">
+             Droit ajouter Produit
+            </label>
+          </div>
+
+
+
+          <div class="form-check">
+            <input  class="form-check-input form-control"  type="checkbox" name="bActif"  [(ngModel)]="bActif" required />
+            <label class="form-check-label pt-1 ps-2"   for="bActif">
+             Compte Actif
+            </label>
+          </div>
+
+          <div class="col-md-4 mt-4">
+            <label for="validationCustom05" class="form-label"
+              >Num de Compte Bancaire</label
+            >
+            <input
+              type="text"
+              class="form-control hauteur"
+              name="NumCompteBancaire"
+              [(ngModel)]="NumCompteBancaire"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4 mt-4">
+            <label for="validationCustom05" class="form-label"
+              >Num de Securite Sociale</label
+            >
+            <input
+              type="text"
+              class="form-control hauteur"
+              name="NumSecuriteSociale"
+              [(ngModel)]="NumSecuriteSociale"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Nombre de Parts d'Impots</label
+            >
+            <input
+
+              type="text"
+              class="form-control hauteur"
+              name="NombrePartsImpots"
+              [(ngModel)]="NombrePartsImpots"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="col-12 col-sm-6">
+         <div class="d-flex justify-content-between">
+           <fieldset class="">
+             <legend>Mode de rémunération</legend>
+             <div class="d-flex">
+              <div class="form-check">
+                <input class="form-check-input"  [checked]="ModeRemuneration == '1'" (click)="change('1')" type="radio" name="ModeRemuneration" id="ModeRemunerationHoraire">
+
+                <label class="form-check-label" for="ModeRemunerationHoraire">Horaire</label>
+              </div>
+              <div class="form-check ms-3">
+                <input class="form-check-input" [checked]="ModeRemuneration == '0'" (click)="change('0')" type="radio" name="ModeRemuneration" id="ModeRemunerationMensuelle"  value="0">
+                <label class="form-check-label" for="ModeRemunerationMensuelle">Mensuelle (fixe)</label>
+              </div>
+             </div>
+           </fieldset>
+           <div class="d-flex align-items-center">
+             <span>Base :</span>
+            <span class="ms-3"> <input class="form-control" type="text" [(ngModel)]="RemunerationBase" name="RemunerationBase"></span>
+           </div>
+         </div>
+
+          <!--Premier tableau-->
+           <p>Montant par défaut des primes</p>
+          <div class="mat-elevation-z8 table-responsive ">
+
+            <table mat-table [dataSource]="dataSource1" class="table-striped w-100"   >
+              <!-- Position Column -->
+
+
+              <ng-container matColumnDef="LibellePrime">
+               <th mat-header-cell *matHeaderCellDef class="pe-1">Prime</th>
+               <td mat-cell *matCellDef="let element" class="pe-1">
+                 {{element.LibellePrime}}
+               </td>
+             </ng-container>
+
+
+
+
+             <ng-container matColumnDef="Montants">
+               <th mat-header-cell *matHeaderCellDef class="pe-1">Montant</th>
+               <td mat-cell *matCellDef="let elements; let y = index" class="pe-1">
+                 <input class="form-control" matInput [(ngModel)]="elements.Montant" [name]="elements.LibellePrime.replaceAll(' ', '').replaceAll('\'', '')" value="{{elements.Montant}}">
+               </td>
+             </ng-container>
+
+
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+              </mat-paginator>
+          </div>
+
+
+          <!--Deuxieme Tableau-->
+
+          <p class="mt-3">Montant par défaut des retenues</p>
+          <div class="mat-elevation-z8 table-responsive mt-">
+
+            <table mat-table [dataSource]="dataSource2" class="table-striped w-100"   >
+              <!-- Position Column -->
+
+              <!-- <ng-container matColumnDef="LibelleRetenue">
+                <th mat-header-cell *matHeaderCellDef class="pe-1 ">Retenue</th>
+                <td mat-cell *matCellDef="let element" class="pe-1 ">{{ element.LibelleRetenue }}</td>
+              </ng-container> -->
+
+              <ng-container matColumnDef="LibelleRetenue">
+               <th mat-header-cell *matHeaderCellDef class="pe-1">Retenue</th>
+               <td mat-cell *matCellDef="let element" class="pe-1">
+                 {{element.LibelleRetenue}}
+               </td>
+             </ng-container>
+
+
+             <ng-container matColumnDef="Montant">
+               <th mat-header-cell *matHeaderCellDef class="pe-1">Montant</th>
+               <td mat-cell *matCellDef="let element; let i = index" class="pe-1">
+                 <input class="form-control" matInput [(ngModel)]="element.Montant" [name]="element.LibelleRetenue.replaceAll(' ', '').replaceAll('\'', '')" value="{{element.Montant}}">
+               </td>
+             </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 20, 30]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+              </mat-paginator>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </mat-tab>
+ </mat-tab-group>
+
+</form>
+
+<ng-template #loading>
+  <div class="fa-3x text-center mb-4 mt-4">
+    <label class="fs-3">chargement de la fiche personnel</label><br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>
+
+
+
+
+

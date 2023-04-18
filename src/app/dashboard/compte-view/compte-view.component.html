@@ -1,0 +1,205 @@
+<div class="pb-3">
+  <li class="nav-item pt-4 ">
+    <a class="nav-link "  style="cursor: pointer;"  (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div>
+    <h1 class="text-center">Plan comptable</h1>
+  </div>
+
+  <div class="mb-3 col-12 col-md-8 col-lg-12">
+    <div class="row">
+      <div class="col-lg-6  mt-2">
+        <i style="position: absolute" class="ps-2 color" data-feather="inbox"></i>
+
+        <input
+  
+          type="text"
+          (keyup)="applyFilter($event)"
+          placeholder="Recherchez par un compte..."
+          class="form-control shadow text-start px-5 text-uppercase"
+        />
+      </div>
+
+      <div class="col-lg-6 text-end mt-2">
+        <button (click)="Imprimer()" class="btn btn-primary">
+          Imprimer
+    </button>
+    </div>
+
+
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8 table-responsive">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="table-striped w-100"
+      *ngIf="!isLoading; else loading"
+    >
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="CodeCompte">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Code Compte</th>
+        <td  [ngClass]="{'estChapitre': element.EstUnChapitre==true}" mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.CodeCompte }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="LibelleCompte">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Libelle du Compte</th>
+        <td [ngClass]="{'estChapitre': element.EstUnChapitre==true}" mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.LibelleCompte }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="SoldeDebit">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Solde Debit</th>
+        <td [ngClass]="{'estChapitre': element.EstUnChapitre==true}" mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.SoldeDebit }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="SoldeCredit">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Solde Credit</th>
+        <td [ngClass]="{'estChapitre': element.EstUnChapitre==true}" mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.SoldeCredit }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="DateCreation">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Date de Creation</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.DateCreation |  date:'short' }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="LiasseDebit">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Liasse de Debit</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.LiasseDebit }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="LiasseCredit">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Liasse de Credit</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.LiasseCredit }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="SensDC">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Sens DC</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.SensDC }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CompteDeContrePartie">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Compte De Contre Partie</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.CompteDeContrePartie }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CompteDeCumul">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Compte De Cumul</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.CompteDeCumul }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CompteDeBanque">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Compte De Banque</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.CompteDeBanque }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="CreePar">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Crée Par</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.CreePar }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Classe">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Classe</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.Classe }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="PersonneAssociee">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Personne Associee</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.PersonneAssociee }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="TypePersonneAssociee">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Type Personne Associee</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.TypePersonneAssociee }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ProduitAssocie">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Produit Associe</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.ProduitAssocie }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="EstUnChapitre">
+        <th mat-header-cell *matHeaderCellDef class="pe-1">Est Un Chapitre</th>
+        <td mat-cell *matCellDef="let element" class="pe-1">
+          {{ element.EstUnChapitre }}
+        </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell class="pe-1" *matHeaderCellDef>Actions</th>
+        <td [ngClass]="{'estChapitre': element.EstUnChapitre==true}" mat-cell class="pe-2 d-flex py-2" *matCellDef="let element">
+          <button
+            type="button"
+            class="btn text-lowercase px-1 py-0"
+            (click)="edit(element.IDCOMPTE)"
+          >
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn text-lowercase px-1 py-0">
+            <i
+              class="fa fa-eye"
+              aria-hidden="true"
+              (click)="view(element.IDCOMPTE)"
+            ></i>
+          </button>
+          <button
+            type="button"
+            class="btn text-lowercase px-1 py-0"
+            (click)="delete(element)"
+          >
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 30]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+  <ng-template #loading>
+    <div class="fa-3x text-center mb-4 mt-4">
+      <label class="fs-3">chargement des comptes</label><br /><br />
+      <i class="fas text-primary spinner-grow"></i><br />
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,218 @@
+<div class="page-container">
+    <div class="page-header">
+        <nav class="navbar navbar-expand-lg d-flex justify-content-between">
+          <div class="" id="navbarNav">
+            <ul class="navbar-nav" id="leftNav">
+              <li class="nav-item">
+                <a style="cursor: pointer;" class="nav-link" id="sidebar-toggle" ><i data-feather="arrow-left"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" >Paramètre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="aide">Aide</a>
+              </li>
+            </ul>
+            </div>
+            <div class="logo">
+              <a class="navbar-brand" href="index.html"></a>
+            </div>
+            <div class="" id="headerNav">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link search-dropdown" href="#" id="searchDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i data-feather="search"></i></a>
+                  <div class="dropdown-menu dropdown-menu-end dropdown-lg search-drop-menu" aria-labelledby="searchDropDown">
+                    <form>
+                      <input class="form-control" type="text" placeholder="Type something.." aria-label="Search">
+                    </form>
+                    <h6 class="dropdown-header">Recent Searches</h6>
+                    <a class="dropdown-item" href="#">charts</a>
+                    <a class="dropdown-item" href="#">new orders</a>
+                    <a class="dropdown-item" href="#">file manager</a>
+                    <a class="dropdown-item" href="#">new users</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link notifications-dropdown" href="#" id="notificationsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">3</a>
+                  <div class="dropdown-menu dropdown-menu-end notif-drop-menu" aria-labelledby="notificationsDropDown">
+                    <h6 class="dropdown-header">Notifications</h6>
+
+                    <a href="#">
+                      <div class="header-notif">
+                        <div class="notif-image">
+                          <span class="notification-badge bg-primary text-white">
+                            <i class="fas fa-bolt"></i>
+                          </span>
+                        </div>
+                        <div class="notif-text">
+                          <p class="bold-notif-text">faucibus dolor in commodo lectus mattis</p>
+                          <small>18:00</small>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a href="#">
+                      <div class="header-notif">
+                        <div class="notif-image">
+                          <span class="notification-badge">
+                            <img src="../../assets/images/avatars/profile-image.png" alt="">
+                          </span>
+                        </div>
+                        <div class="notif-text">
+                          <p>faucibus dolor in commodo lectus mattis</p>
+                          <small>yesterday</small>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <div class="header-notif">
+                        <div class="notif-image">
+                          <span class="notification-badge">
+                            <img src="../../assets/images/avatars/profile-image-3.jpg" alt="">
+                          </span>
+                        </div>
+                        <div class="notif-text">
+                          <p>faucibus dolor in commodo lectus mattis</p>
+                          <small>yesterday</small>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link profile-dropdown" href="#" id="profileDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../../assets/images/avatars/profile-image-1.png" alt=""></a>
+                  <div class="dropdown-menu dropdown-menu-end profile-drop-menu" aria-labelledby="profileDropDown">
+                    <a class="dropdown-item" href="#"><i data-feather="user"></i>Profile</a>
+                    <a class="dropdown-item" href="#"><i data-feather="inbox"></i>Messages</a>
+                    <a class="dropdown-item" href="#"><i data-feather="edit"></i>Activités<span class="badge rounded-pill bg-success">12</span></a>
+                    <a class="dropdown-item" href="#"><i data-feather="check-circle"></i>Taches</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="societe/list"><i data-feather="settings"></i>Paramètres</a>
+                    <a class="dropdown-item" href="#"><i data-feather="unlock"></i>Serrure</a>
+                    <a class="dropdown-item" (click)="onLogout()"><i data-feather="log-out"></i>Déconnection</a>
+                  </div>
+                </li>
+              </ul>
+          </div>
+        </nav>
+    </div>
+    <div class="page-sidebar">
+        <ul class="list-unstyled accordion-menu">
+          <li class="sidebar-title">
+            Main
+          </li>
+          <li class="active-page">
+            <a routerLink="#"><i data-feather="home"></i>Tableau de bord</a>
+          </li>
+          <li class="sidebar-title">
+            Apps
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Departement<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="departement/list"><i class="far fa-circle"></i>Liste des départements</a></li>
+              <li><a routerLink="departement/ajout"><i class="far fa-circle"></i>ajouter un département</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Arrandissement<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="arrondissement/list"><i class="far fa-circle"></i>Liste des arrandissements</a></li>
+              <li><a routerLink="arrondissement/ajout"><i class="far fa-circle"></i>ajouter un arrandissement</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Zone<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="zone/list"><i class="far fa-circle"></i>Liste des zones</a></li>
+              <li><a routerLink="zone/ajout"><i class="far fa-circle"></i>Ajouter une zone</a></li>
+            </ul>
+          </li>
+
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Quartier<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="quartier/list"><i class="far fa-circle"></i>Liste des quartiers</a></li>
+              <li><a routerLink="quartier/ajout"><i class="far fa-circle"></i>Ajouter un Quartier</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Ecoles<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="ecole/list"><i class="far fa-circle"></i>Liste des écoles</a></li>
+              <li><a routerLink="ecole/ajout"><i class="far fa-circle"></i>ajouter une Ecole</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a routerLink="nationalite/list" style="cursor: pointer;"><i data-feather="inbox"></i>Nationalité<i class="fas fa-chevron-right dropdown-icon"></i></a>
+
+          </li>
+
+
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Plan Comptable<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="compte/list"><i class="far fa-circle"></i>Plan comptable</a></li>
+              <li><a routerLink="compte/ajout"><i class="far fa-circle"></i>Ajouter un compte</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Personnel<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="personnel/list"><i class="far fa-circle"></i>Tous les personnels</a></li>
+              <li><a routerLink="droitPersonnel/ajout"><i class="far fa-circle"></i>Ajouter un personnel</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a routerLink="prime_et_Retenue/list" style="cursor: pointer;"><i data-feather="inbox"></i>Prime et Retenue<i class="fas fa-chevron-right dropdown-icon"></i></a>
+
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Produits<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="produit/list"><i class="far fa-circle"></i>Liste des produits</a></li>
+              <li><a routerLink="produit/ajout"><i class="far fa-circle"></i>ajouter un produit</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="inbox"></i>Liasse<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a routerLink="liasse/list"><i class="far fa-circle"></i>Liste des liasses</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a style="cursor: pointer;"><i data-feather="gift"></i>Statistiques<i class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+              <li><a href="#"><i class="far fa-circle"></i>Effectif</a></li>
+              <li><a href="#"><i class="far fa-circle"></i>Absences</a></li>
+              <li><a href="#"><i class="far fa-circle"></i>Salaires</a></li>
+              <li><a href="#"><i class="far fa-circle"></i>Performance</a></li>
+            </ul>
+          </li>
+
+
+        </ul>
+    </div>
+
+
+    <div class="page-content">
+      <div class="main-wrapper">
+      <router-outlet></router-outlet>
+
+      </div>
+    </div>

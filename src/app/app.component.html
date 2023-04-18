@@ -1,0 +1,15 @@
+
+
+
+
+<div *ngIf="isLogin; else connexion">
+ 
+    <app-principal></app-principal>
+</div>
+
+
+<ng-template #connexion>
+
+  <app-connexion></app-connexion>
+
+</ng-template>

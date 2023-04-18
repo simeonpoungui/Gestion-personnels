@@ -1,0 +1,331 @@
+<div class="row" *ngIf="!isLoading; else loading">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de la société" : "" }}
+              {{ action === "edit" ? "Modifier la société" : "" }}
+              {{ action === "view" || action === "edit" ? IDSociete : "" }}
+              {{ !action ? "Nouvelle Société" : "" }}
+            </h2>
+          </h3>
+
+          <p></p>
+          <form
+            #societeForm="ngForm"
+            (ngSubmit)="onSubmitSociete(societeForm)"
+            class="m-auto"
+          >
+            <div class="container">
+              <div class="row gap-0">
+                <div class="col-lg-6">
+                  <div class="logo mt-2 rounded">
+                    <div>
+                      <img
+                        [src]="imageSrc"
+                        class="w-100"
+                        alt=""
+                        style="height: 200px;"
+                      />
+                    </div>
+                    <input
+                      [readonly]="action == 'view'"
+                      type="file"
+                      class="form-control mt-4"
+                      name="Logo"
+                      [(ngModel)]="Logo"
+                      required=""
+                      (change)="onFileSelected($event)"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Nom de la Société</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="Nom"
+                      [(ngModel)]="Nom"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Adresse de la Société</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="Adresse"
+                      [(ngModel)]="Adresse"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Mobile de la Société</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="number"
+                      class="form-control"
+                      name="Mobile"
+                      [(ngModel)]="Mobile"
+                      required=""
+                    />
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        ville de la Société</label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="IDville"
+                        [(ngModel)]="IDville"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-5 gap-0">
+                <div class="col-lg-6">
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Responsable de la Société</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="Responsable"
+                      [(ngModel)]="Responsable"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Comptable</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="EnteteComptable"
+                      [(ngModel)]="EnteteComptable"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      Direction</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="EntereDirection"
+                      [(ngModel)]="EntereDirection"
+                      required=""
+                    />
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        RCCM de la Société</label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="RCCM"
+                        [(ngModel)]="RCCM"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        Mail de la Société
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="Mail"
+                        [(ngModel)]="Mail"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        SiteWeb de la Société
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="SiteWeb"
+                        [(ngModel)]="SiteWeb"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      NIU de le Société
+                    </label>
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="NIU"
+                      [(ngModel)]="NIU"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      SCIET de la Société
+                    </label>
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="SCIET"
+                      [(ngModel)]="SCIET"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="">
+                    <label for="validationCustom02" class="form-label">
+                      SCIEN de la Société</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="SCIEN"
+                      [(ngModel)]="SCIEN"
+                      required=""
+                    />
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        IdentifiantSociete de la Société
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="IdentifiantSociete"
+                        [(ngModel)]="IdentifiantSociete"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        Licence de la Société
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="Licence"
+                        [(ngModel)]="Licence"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="">
+                      <label for="validationCustom02" class="form-label">
+                        Agrement de la Société
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="Agrement"
+                        [(ngModel)]="Agrement"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <div class="col-lg-6 m-auto">
+                  <div class="">
+                    <label for="validationCustom02 text" class="form-label">
+                      Code de la Société
+                    </label>
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="CodeSociete"
+                      [(ngModel)]="CodeSociete"
+                      required=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <div class="col-lg-6 m-auto">
+                  <div class="">
+                    <button
+                      type="submit"
+                      *ngIf="!isLoading2; else loading"
+                      class="btn bg-primary text-white form-control btn-primary"
+                    >
+                      {{
+                        action === "edit"
+                          ? "Modifier une société"
+                          : "creer une société"
+                      }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #loading>
+              <div class="fa-3x text-start mb-2 mt-2">
+                <span class="fs-5">{{message}}</span>
+                <br /><br />
+                <i class="fas text-primary spinner-grow"></i><br />
+              </div>
+            </ng-template>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="fa-3x text-center mb-4 mt-4">
+      <label class="fs-3">Patientez un instant</label><br /><br />
+      <i class="fas text-primary spinner-grow"></i><br />
+    </div>
+  </ng-template>

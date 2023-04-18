@@ -1,0 +1,90 @@
+<div class="row">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2>
+            {{ action === "view" ? "Fiche du Département" : "" }}
+            {{ action === "edit" ? "Modification du département" : "" }}
+            {{ action === "view" || action === "edit" ? NomDepartement : "" }}
+            {{ !action ? "  Créer un département" : "" }}
+          </h2>
+        </h3>
+
+        <p></p>
+        <form
+          #departementForm="ngForm"
+          (ngSubmit)="onSubmitForm(departementForm)"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label"
+              >Code du département</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="CodeDepartement"
+              [(ngModel)]="CodeDepartement"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Ordre</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="Ordre"
+                [(ngModel)]="Ordre"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Nom du département</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur"
+                name="NomDepartement"
+                [(ngModel)]="NomDepartement"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="col-12" *ngIf="action !== 'view'">
+            <button
+              [disabled]="isFormValid()"
+              style="width: 30em"
+              type="submit"
+              class="btn btn-primary"
+              *ngIf="!isLoading; else loading" 
+            >
+              {{ action === "edit" ? "Modifier" : "Créer" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5">Création du departement en cours !!!</span> <br /><br />
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>

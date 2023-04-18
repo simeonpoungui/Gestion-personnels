@@ -1,0 +1,449 @@
+<div class="row">
+  <li class="nav-item">
+    <a class="nav-link " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+  </li>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2>
+            {{ action === "view" ? "Fiche Ecole" : "" }}
+            {{ action === "edit" ? "Modification de l'Ecole" : "" }}
+            {{ action === "view" || action === "edit" ? Fr_NomEcole : "" }}
+            {{ !action ? "  Créer votre ecole" : "" }}
+          </h2>
+        </h3>
+        <form
+          #ecoleForm="ngForm"
+          (ngSubmit)="onSubmitForm(ecoleForm)"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">Code Etab</label>
+            <input
+              [readonly]="action == 'view'"
+              maxlength="6"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="CodeEtab"
+              [(ngModel)]="CodeEtab"
+              required=""
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Nom Ecole</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Fr_NomEcole"
+              [(ngModel)]="Fr_NomEcole"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Adresse</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Fr_Adresse"
+              [(ngModel)]="Fr_Adresse"
+              required=""
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label"
+              >Code Ecole DEC</label
+            >
+            <div class="input-group has-validation">
+              <input
+                [readonly]="action == 'view'"
+                maxlength="6"
+                type="text"
+                class="form-control hauteur"
+                name="CodeEcoleDEC"
+                [(ngModel)]="CodeEcoleDEC"
+                required=""
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom03" class="form-label">Telephone</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="TelEphone"
+              [(ngModel)]="TelEphone"
+              required=""
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom04" class="form-label"
+              >Nom Prenom Responsable</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="NomPrenomResponsable"
+              [(ngModel)]="NomPrenomResponsable"
+              required=""
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Qualité Responsable</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="QualiteResponsable"
+              [(ngModel)]="QualiteResponsable"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Telephone Responsable</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="TElephoneResponsable"
+              [(ngModel)]="TElephoneResponsable"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Ville</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Ville"
+              [(ngModel)]="Ville"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label">Departement</label>
+
+            <select
+            class="text-capitalize select-box form-select form-control hauteur"
+            [(ngModel)]="IDDEPARTEMENT"
+            name="IDDEPARTEMENT"
+            (change)="onSelectionChange($event)"
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option
+              *ngFor="let option of DepartementList"
+              [value]="option.IDDEPARTEMENT"
+            >
+              {{ option.NomDepartement }}
+            </option>
+          </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Commune</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Commune"
+              [(ngModel)]="Commune"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="exampleDataList" class="form-label"
+              >Arrondissement</label
+            >
+
+            <select
+              class="text-capitalize form-select select-box form-control hauteur"
+              [(ngModel)]="Arrondissement"
+              name="Arrondissement"
+              required=""
+            >
+              <option value="" disabled> --- selectionner ici --</option>
+              <option
+                *ngFor="let option of ArrondissementList"
+                [value]="option.IDARRONDISSEMENT"
+              >
+                {{ option.NomArron }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >IdentifiantEtab</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="IdentifiantEtab"
+              [(ngModel)]="IdentifiantEtab"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Nombre d'Eleves</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="NbEleves"
+              [(ngModel)]="NbEleves"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Courriel</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Courriel"
+              [(ngModel)]="Courriel"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Num Inscription du Dernier</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="NumInscriptionDernier"
+              [(ngModel)]="NumInscriptionDernier"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >IDINSPECTIONS</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="IDINSPECTIONS"
+              [(ngModel)]="IDINSPECTIONS"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >CENTRE EXAMEN</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="IDCENTRE_EXAMEN"
+              [(ngModel)]="IDCENTRE_EXAMEN"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Position GPS</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="PositionGPS"
+              [(ngModel)]="PositionGPS"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label"
+              >Code Departement</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="CodeDepartement"
+              [(ngModel)]="CodeDepartement"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Nature</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur"
+              name="Nature"
+              [(ngModel)]="Nature"
+              required=""
+            />
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Zone</label>
+                  <select
+            class="text-capitalize form-select select-box form-control hauteur"
+            [(ngModel)]="IDZone"
+            name="IDZone"
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option
+              *ngFor="let zone of ZoneList"
+              [value]="zone.IDZone"
+            >
+              {{ zone.NomZone }}
+            </option>
+          </select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">QUARTIER</label>
+            <select
+            class="text-capitalize form-select select-box form-control hauteur"
+            [(ngModel)]="IDQUARTIER"
+            name="IDQUARTIER"
+            required=""
+          >
+            <option value="" disabled>-- selectionner ici --</option>
+            <option
+              *ngFor="let quatier of QuartierList"
+              [value]="quatier.IDQUARTIER"
+            >
+              {{ quatier.NomQuartier }}
+            </option>
+          </select>
+            <div class="invalid-feedback"></div>
+          </div>
+
+         <div class="row mt-5">
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Cycle de Préscolaire</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Cycle_PrEscolaire"
+              [(ngModel)]="Cycle_PrEscolaire"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Cycle de Primaire</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Cycle_Primaire"
+              [(ngModel)]="Cycle_Primaire"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Cycle de College</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Cycle_College"
+              [(ngModel)]="Cycle_College"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Cycle de Lycee</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Cycle_Lycee"
+              [(ngModel)]="Cycle_Lycee"
+              required
+            />
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom05" class="form-label"
+              >Cycle Superieur</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              class="form-check-input form-control"
+              type="checkbox"
+              name="Cycle_Superieur"
+              [(ngModel)]="Cycle_Superieur"
+              required
+            />
+          </div>
+         </div>
+          <div class="col-md-4  mt-5" *ngIf="action !== 'view'">
+            <button
+              [disabled]="isFormValid()"
+              type="submit"
+              *ngIf="!isLoading; else loading"
+              class="btn bg-primary form-control text-white btn-primary"
+            >
+              {{ action === "edit" ? "Modifier" : "Créer" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="fa-3x text-start mb-2 mt-2">
+    <span class="fs-5 mb-2 mt-2">Création de l'école en cours !!!</span> <br><br>
+    <i class="fas text-primary spinner-grow"></i><br />
+  </div>
+</ng-template>
